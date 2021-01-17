@@ -28,28 +28,42 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-2">
                                         <label class="small mb-1" for="date1">จาก</label>
-                                        <input type="text" class="form-control datepicker" id="date1">
+                                        <input type="text" class="form-control datepicker" id="date1" value="<?php echo date('d-m-Y');?>">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label class="small mb-1" for="date2">ถึง</label>
-                                        <input type="text" class="form-control datepicker" id="date2">
+                                        <input type="text" class="form-control datepicker" id="date2" value="<?php echo date('d-m-Y');?>">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label class="small mb-1" for="province">จังหวัด</label>
                                         <select class="form-control" id="province">
-                                            <option value="null">--ไม่เลือก--</option>
+                                            <option value="NULL">--ไม่เลือก--</option>
+                                            <?php
+                                            $getp = $connect->prepare("SELECT DISTINCT `province` FROM `orders` WHERE `uid` = ?");
+                                            $getp->execute([$_SESSION['uid']]);
+                                            while($row = $getp->fetch()){
+                                                echo'<option value="'.$row['province'].'">'.$row['province'].'</option>';
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label class="small mb-1" for="sector">ภาค</label>
                                         <select class="form-control" id="sector">
-                                            <option value="null">--ไม่เลือก--</option>
+                                            <option value="NULL">--ไม่เลือก--</option>
+                                            <?php
+                                            $getp = $connect->prepare("SELECT DISTINCT `sector` FROM `orders` WHERE `uid` = ?");
+                                            $getp->execute([$_SESSION['uid']]);
+                                            while($row = $getp->fetch()){
+                                                echo'<option value="'.$row['sector'].'">'.$row['sector'].'</option>';
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="text-center">
-                                    <a href="#" class="btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> โหลดข้อมูล</a>
+                                    <a href="#" class="btn btn-sm btn-success shadow-sm" onclick="DownloadData()"><i class="fas fa-download fa-sm text-white-50"></i> โหลดข้อมูล</a>
                                 </div>
                             </div>
                         </div>

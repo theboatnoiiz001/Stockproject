@@ -439,3 +439,29 @@ function addOrder() {
     }
     console.log(listdata)
 }
+
+function DownloadData() {
+    let date1 = $("#date1").val();
+    let date2 = $("#date2").val();
+    let province = $("#province").val();
+    let sector = $("#sector").val();
+    if (date1 != "" || date2 != "") {
+        $.get("./api/downloadData.php", { date1: date1, date2: date2, province: province, sector: sector }, function(data) {
+            if (data.status = 200) {
+                window.location.replace("./api/downloadData.php?date1=" + date1 + "&date2=" + date2 + "&province=" + province + "&sector=" + sector);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ผิดพลาด!',
+                    text: data.msg,
+                })
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'ผิดพลาด!',
+            text: 'กรุณากรอกวันที่ให้ครบ',
+        })
+    }
+}

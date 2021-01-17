@@ -10,7 +10,7 @@ $CONF["name"] = "stock";
 $_SESSION['uid'] = 1;
 $connect = new PDO("mysql:host=" . $CONF["host"] . ";dbname=" . $CONF["name"] . ";" , $CONF["user"] , $CONF["pass"] , array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")) or die ("ERROE SQL");
 $connect->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
-$website = "http://localhost/stock";
+$website = "http://localhost/stockproject";
 $partUpload = "http://localhost/findpets/uploads/";
 $ip = $_SERVER['REMOTE_ADDR'];
 if(isset($_SESSION['uid'])){
