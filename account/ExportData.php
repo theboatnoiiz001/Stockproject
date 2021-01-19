@@ -12,15 +12,6 @@
                     <h6 class="m-0 font-weight-bold text-primary"> ตัวเลือกดึงข้อมูลลูกค้า </h6>
                 </div>
                 <!-- Card Body -->
-                <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-                <script>
-                $(function() {
-                    $(".datepicker").datepicker({
-                        dateFormat: 'dd-mm-yy'
-                    });
-                }).datepicker("setDate", "0");
-                </script>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">

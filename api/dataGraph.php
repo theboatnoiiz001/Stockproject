@@ -1,30 +1,23 @@
 <?php
 header("Content-type: application/json; charset=utf-8");
-include("dataajax.php");
-if(isset($_SESSION['pw_uid'])){
-	$day = cal_days_in_month(CAL_GREGORIAN, date("m"), date("Y"));
-	for($i=1;$i<=$day;$i++){
-		$deposit = 0;
-		$withdraw = 0;
-		$dayStart = strtotime($i .'-'. date("m") .'-'. date("Y") . " 00:00");
-		$dayEnd = strtotime($i .'-'. date("m") .'-'. date("Y") . " 23:59");
-		$getdata = $connect->prepare("SELECT * FROM `pw_activity` WHERE `uid` = ? AND `status` = 1 AND `created` BETWEEN ? AND ? ORDER BY `id` DESC");
-		$getdata->execute([$_SESSION['pw_uid'],$dayStart,$dayEnd]);
-		while($row = $getdata->fetch()){
-			if($row['type'] == 1){
-				$deposit += $row['amount_usd'];
-			}else{
-				$withdraw += $row['amount_usd'];
-			}								
-		}
-		$daylist[] = $i;
-		$depositlist[] = $deposit;
-		$withdrawlist[] = $withdraw;
+include("../core/config.php");
+if(isset($_POST['graph'])){
+	for($i=7;$i>0;$i--){
+		$day =  strtotime(date("d-m-Y"))+(86400)-(86400)*$i;
+		$dayStart = $day;
+		$dayEnd = $day+86399;
+		$getdata = $connect->prepare("SELECT SUM(`summoney`) as summoney , SUM(`expense`) as expense FROM `orders` WHERE `uid` = ? AND `created_at` BETWEEN ? AND ?");
+		$getdata->execute([$_SESSION['uid'],$dayStart,$dayEnd]);
+		$getdata = $getdata->fetch();
+		$daylist[] = date("D",$day);
+		$incomelist[] = $getdata['summoney'];
+		$profit[] = ($getdata['summoney']-$getdata['expense']);
 	}
+	
 	$data = [
 		"daylist" => $daylist,
-		"depositlist" => $depositlist,
-		"withdrawlist" => $withdrawlist
+		"incomelist" => $incomelist,
+		"profit" => $profit
 	];
 	echo json_encode($data,true);
 	exit();

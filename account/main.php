@@ -82,7 +82,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="ordertoday">...</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                <i class="fas fa-pallet fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -175,48 +175,49 @@
                 <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">สินค้าเคลื่อนไหว</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">รายการล่าสุด (20รายการ)</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>#</th>
+                                        <th>วันที่</th>
+                                        <th>รายการ</th>
+                                        <th>ช่องทาง</th>
+                                        <th>มูลค่า</th>
+                                        <th>เบอร์</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>63</td>
-                                        <td>2011/07/25</td>
-                                        <td>$170,750</td>
-                                    </tr>
+                                    <?php
+                                        $getData = $connect->prepare("SELECT `id_order`,`order_code`,`saleschannel`,`phone`,`summoney`,`created_at` FROM `orders` WHERE `uid` = ? ORDER BY `id_order` DESC LIMIT 20");
+                                        $getData->execute([$_SESSION['uid']]);
+                                        while($row = $getData->fetch()){
+                                            echo'<tr>
+                                            <td>'.$row['id_order'].'</td>
+                                            <td>'.date("d-m-Y",$row['created_at']).'</td>
+                                            <td><a href="./detailOrder/'.$row['order_code'] .'">'.$row['order_code'] .'</a></td>
+                                            <td>'.$row['saleschannel'] .'</td>
+                                            <td>'.number_format($row['summoney'],2).'</td>
+                                            <td>'.$row['phone'].'</td>
+                                            <td><div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="#">พิมพ์ใบแปะพัสดุ</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">ลบ</a>
+                                            </div>
+                                        </div></td>
+                                        </tr>';
+                                        }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -231,21 +232,22 @@
     </div>
     <!-- End of Main Content -->
     <script>
-        $(document).ready(function() {
-            getData();
-            setInterval(function() {
-                getData();
-            }, 3000)
-        });
+$(document).ready(function() {
+    getData();
+    getDataArea(dataGraphArea);
+    setInterval(function() {
+        getData();
+    }, 3000)
+});
 
-        function getData() {
-            $.post("./api/getDataMain.php", {
-                get: true
-            }, function(data) {
-                $("#moneytoday").html(data.today);
-                $("#moneymonth").html(data.month);
-                $("#moneyyear").html(data.year);
-                $("#ordertoday").html(data.ordertoday)
-            })
-        }
+function getData() {
+    $.post("./api/getDataMain.php", {
+        get: true
+    }, function(data) {
+        $("#moneytoday").html(data.today);
+        $("#moneymonth").html(data.month);
+        $("#moneyyear").html(data.year);
+        $("#ordertoday").html(data.ordertoday)
+    })
+}
     </script>

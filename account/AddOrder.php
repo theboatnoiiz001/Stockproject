@@ -225,15 +225,12 @@
                                         $getdata = $connect->prepare("SELECT `id_prod`,`id_cate`,`name`,`img`,`purchase_price`,`selling_price`,`inventory`  FROM `product` WHERE `uid` = ?");
                                         $getdata->execute([$_SESSION['uid']]);
                                         while($row = $getdata->fetch()){
-                                            $getCate = $connect->prepare("SELECT `name` FROM `category` WHERE `uid` = ? AND `id_cate` = ?");
-                                            $getCate->execute([$_SESSION['uid'],$row['id_cate']]);
-                                            $getCate = $getCate->fetch();
                                             echo'<tr>
                                             <td>
                                                 <div class="d-flex justify-content-start"><img
-                                                      class="rounded"  src="./uploads/'.$row['img'].'.jpg" width="100px">
+                                                      class="rounded float-left"  src="./uploads/'.$row['img'].'.jpg" height="100px">
                                                     <div style="margin-left:10px;margin-top:20px;">'.$row['name'].'<br><span
-                                                            class="badge badge-light">หมวดหมู่ : '.$getCate['name'].'</span></div>
+                                                            class="badge badge-light">หมวดหมู่ : '.getCategory($row['id_cate'],$connect).'</span></div>
                                                 </div>
                                             </td>
                                             <td><span class="badge badge-warning">'.$row['purchase_price'].'</span></td>

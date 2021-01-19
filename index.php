@@ -14,6 +14,7 @@
 		case "OrderAll": include("account/OrderAll.php"); break;
 		case "detailOrder": include("account/detailOrder.php"); break;
 		case "ExportData": include("account/ExportData.php"); break;
+		case "Summary": include("account/Summary.php"); break;
 		break;
 		default: include("account/main.php");
 	}

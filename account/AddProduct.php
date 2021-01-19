@@ -46,7 +46,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="small mb-1" for="priceSell">ราคาขาย</label>
-                                    <input class="form-control" id="priceSell" type="number" value="" placeholder="0.00">
+                                    <input class="form-control" id="priceSell" type="number" value=""
+                                        placeholder="0.00">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -67,12 +68,14 @@
                                             }
                                         ?>
                                     </select>
-                                    <a class="d-block mt-1" data-toggle="modal" data-target="#addCategory" style="cursor:pointer;">+เพิ่มหมวดหมู่</a>
+                                    <a class="d-block mt-1" data-toggle="modal" data-target="#addCategory"
+                                        style="cursor:pointer;">+เพิ่มหมวดหมู่</a>
                                 </div>
                             </div>
                             <div class="text-center">
                                 <!-- Profile picture help block-->
-                                <div class="small font-italic text-muted mb-4">รูปภาพ JPG or PNG no larger than 5 MB</div>
+                                <div class="small font-italic text-muted mb-4">รูปภาพ JPG or PNG no larger than 5 MB
+                                </div>
                                 <!-- Profile picture upload button-->
                                 <style>
                                 .custom-file-upload {
@@ -82,12 +85,13 @@
                                     cursor: pointer;
                                 }
                                 </style>
-                                <input type="file" name="upfile" class="custom-file-upload" id="fileupimg" onchange="setimg(this)"
-                                    aria-describedby="fileHelp">
+                                <input type="file" name="upfile" class="custom-file-upload" id="fileupimg"
+                                    onchange="setimg(this)" aria-describedby="fileHelp">
                                 <br>
                                 <br>
                                 <hr>
-                                <button class="btn btn-primary" id="send" type="button" onclick="additem()">บันทึกข้อมูล</button>
+                                <button class="btn btn-primary" id="send" type="button"
+                                    onclick="additem()">บันทึกข้อมูล</button>
                             </div>
                         </form>
                     </div>

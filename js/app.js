@@ -465,3 +465,56 @@ function DownloadData() {
         })
     }
 }
+var dataProvince = $('#dataProvince').DataTable();
+var dataSector = $('#dataSector').DataTable();
+var dataProduct = $('#dataProduct').DataTable();
+var dataCategory = $('#dataCategory').DataTable();
+
+function getDataSummary(GraphSummaryFull) {
+    let date1 = $("#date1").val();
+    let date2 = $("#date2").val();
+    if (date1 != "" || date2 != "") {
+        dataProvince.clear();
+        dataSector.clear();
+        dataProduct.clear();
+        dataCategory.clear();
+
+        $.get("./api/Summary.php?date1=" + date1 + "&date2=" + date2, function(data) {
+            data.province.forEach(ele => {
+                dataProvince.row.add([
+                    ele.name,
+                    ele.money,
+                    ele.profit
+                ]).draw();
+            })
+            data.sector.forEach(ele => {
+                dataSector.row.add([
+                    ele.name,
+                    ele.money,
+                    ele.profit
+                ]).draw();
+            })
+            data.product.forEach(ele => {
+                dataProduct.row.add([
+                    ele.name,
+                    ele.money,
+                    ele.profit
+                ]).draw();
+            })
+            data.category.forEach(ele => {
+                dataCategory.row.add([
+                    ele.name,
+                    ele.money,
+                    ele.profit
+                ]).draw();
+            })
+            GraphSummaryFull(data.graph)
+        })
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'ผิดพลาด!',
+            text: data.msg,
+        })
+    }
+}

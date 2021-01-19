@@ -55,8 +55,9 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal"  type="button" onclick="addCategory()">เพิ่มหมวดหมู่</button><button
-                    class="btn btn-secondary" type="button" data-dismiss="modal">Close</button></div>
+            <div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" type="button"
+                    onclick="addCategory()">เพิ่มหมวดหมู่</button><button class="btn btn-secondary" type="button"
+                    data-dismiss="modal">Close</button></div>
         </div>
     </div>
 </div>
@@ -74,13 +75,13 @@
 <!-- Page level custom scripts -->
 <script src="<?php echo $website;?>/js/demo/chart-area-demo.js"></script>
 <script src="<?php echo $website;?>/js/demo/chart-pie-demo.js"></script>
-<script src="<?php echo $website;?>/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="<?php echo $website;?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="<?php echo $website;?>/js/app.js"></script>
 <script>
 $(document).ready(function() {
     $('#dataTable').DataTable({
-        "order": [[ 0, "desc" ]]
+        "order": [
+            [0, "desc"]
+        ]
     });
 });
 </script>

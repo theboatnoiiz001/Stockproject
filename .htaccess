@@ -1,6 +1,6 @@
 RewriteEngine on
 RewriteBase /stockproject/
-RewriteRule ^(AddOrder|Buy|Product|AddProduct|Category|HisProduct|OrderAll|ExportData)?$ index.php?a=$1 [L]
+RewriteRule ^(AddOrder|Buy|Product|AddProduct|Category|HisProduct|OrderAll|ExportData|Summary)?$ index.php?a=$1 [L]
 RewriteRule ^ProductEdit/(.*)?$ index.php?a=editProduct&id=$1 [L]
 RewriteRule ^detailOrder/(.*)?$ index.php?a=detailOrder&id=$1 [L]
 RewriteRule ^Sell/sale?$ index.php?a=edit&id=$1 [L]
